@@ -15,22 +15,69 @@ app.use(bodyParser.urlencoded({
 app.set('view engine', 'ejs');
 
 // -* This makes sure that any Express calls for files will always set the public folder as the root
-app.use(express.static(__dirname+`/public`));
+app.use(express.static(__dirname + `/public`));
 
 // * DEMO DATA
 const data = require(`${__dirname}/public/javascript/data.js`);
 
 // * EXPRESS ROUTES
+// -* Home Route
 app.get("/", function (req, res) {
-  console.log(`GET request for Home Page`); 
-  console.log(`\n`);   
+  console.log(`GET request for Home Page`);
+  console.log(`\n`);
 
   res.render(`modules/home`, {
     sample: data.homeStartingContent
   });
 });
 
+// -* About Route
+app.get("/about", function (req, res) {
+  console.log(`GET request for About Page`);
+  console.log(`\n`);
 
+  res.render(`modules/about`, {
+    sample: data.aboutContent
+  });
+});
+
+// -* Contact Route
+app.get("/contact", function (req, res) {
+  console.log(`GET request for Contact Page`);
+  console.log(`\n`);
+
+  res.render(`modules/contact`, {
+    sample: data.contactContent
+  });
+});
+
+// -* Compose Route
+app.get("/compose", function (req, res) {
+  console.log("GET request for Compose Page");
+  console.log(`\n`);
+
+  res.render("modules/compose", {
+    sample: ""
+  });
+});
+
+// -* POST Compose
+app.post("/compose", function (req, res) {
+  console.log(`POST request for Compose`);
+  console.log(`\n`); 
+  
+  const post = {
+    id: data.posts.length,
+    date: "2022-02-02",
+    title: req.body.title,
+    body: req.body.post
+  };
+
+  data.posts.push(post);
+  console.log(post); 
+  
+  res.redirect("/");
+});
 
 // * SERVER LISTENER
 // TODO - Make sure to fix the port number
