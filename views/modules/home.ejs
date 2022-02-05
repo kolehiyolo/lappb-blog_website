@@ -3,4 +3,26 @@
 <h1>Home</h1>
 <p><%=sample%></p>
 
+<div class="posts d-grid gap-3">
+    <%postsArray.forEach(function(post,index){%>
+    <%if (index===0 || index%3===0) {%>
+        <div class="row">
+    <%};%>
+        <!-- <div class="container col-sm-4"> -->
+            <div class="posts--thumb card col-4 p-3">
+            <!-- <div class="posts--thumb card"> -->
+                <h5 class="card-title"><%=post.title%></h5>
+                <p class="card-text"><%=post.body%></p>
+                <i><%=JSON.stringify(post)%></i>
+            </div>
+        <!-- </div> -->
+    <%if ((index+1)%3===0 || postsArray[index+1] === undefined) {%>
+        </div>
+    <%};%>
+    <%});%>
+
+</div>
+
+
+
 <%- include(`../partials/footer`) -%>

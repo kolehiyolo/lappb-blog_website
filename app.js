@@ -26,8 +26,11 @@ app.get("/", function (req, res) {
   console.log(`GET request for Home Page`);
   console.log(`\n`);
 
+  console.log(data.posts); 
+
   res.render(`modules/home`, {
-    sample: data.homeStartingContent
+    sample: data.homeStartingContent,
+    postsArray: data.posts
   });
 });
 
@@ -74,7 +77,6 @@ app.post("/compose", function (req, res) {
   };
 
   data.posts.push(post);
-  console.log(post); 
   
   res.redirect("/");
 });

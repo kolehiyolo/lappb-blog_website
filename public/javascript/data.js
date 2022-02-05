@@ -14,7 +14,25 @@ let posts = [
         date: "2022-02-02",
         title: "Test Post 2",
         body: "I am another post"
-    }
+    },
+    {
+        id: 2,
+        date: "2022-02-02",
+        title: "Test Post 2",
+        body: "I am another post"
+    },
+    {
+        id: 3,
+        date: "2022-02-02",
+        title: "Test Post 2",
+        body: "I am another post"
+    },
+    {
+        id: 4,
+        date: "2022-02-02",
+        title: "Test Post 2",
+        body: "I am another post"
+    },
 ];
 
 module.exports = {
