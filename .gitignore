@@ -1,0 +1,22 @@
+# cd ".\Projects\Kolehiyolo's Portfolio\#notouch\Projects\(Source)\"
+# cd '.\(Project Name)\'
+
+# Avoid accidental upload of the Sketch and Figma design files
+*.sketch
+*.fig
+
+# Avoid accidental XD upload if you convert the design file
+*.xd
+
+# Avoid your project being littered with annoying .DS_Store files!
+.DS_Store
+.prettierignore
+
+# Ignoring the node-modules folder, which is usually very big in file size
+/node_modules
+
+# Ignoring the starter folder provided for the project
+/#original
+
+# Ignoring this file itself
+# .gitignore
