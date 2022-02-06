@@ -2,6 +2,7 @@
     padding-top: 70px;
     padding-bottom: 70px;
 }
+
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -10,9 +11,15 @@
     margin-bottom: 0;
     font-size: 12px;
     letter-spacing: 5px;
+    text-transform: uppercase;
 }
-.navbar-nav  li a:hover {
+
+.navbar-nav a:hover {
     color: #1abc9c !important;
+}
+
+.navbar-collapse {
+    flex-direction: row-reverse;
 }
 
 .footer-padding {
@@ -20,7 +27,7 @@
 }
 
 .footer {
-	position: absolute;
+	/* position: absolute; */
 	text-align: center;
 	bottom: 0;
 	width: 100%;
