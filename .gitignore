@@ -20,3 +20,6 @@
 
 # Ignoring this file itself
 # .gitignore
+
+# Ignoring the test file
+/views/modules/test.js

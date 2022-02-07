@@ -26,7 +26,7 @@ app.get("/", function (req, res) {
   console.log(`GET request for Home Page`);
   console.log(`\n`);
 
-  console.log(data.posts); 
+  // console.log(data.posts);
 
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
@@ -64,20 +64,44 @@ app.get("/compose", function (req, res) {
   });
 });
 
+// -* Dynamic Post Route
+app.get("/post/:postID", function (req, res) {
+  console.log(`GET request for Post ${req.params.postID}`);
+  console.log(`\n`);
+
+  if (
+    req.params.postID < data.posts.length &&
+    req.params.postID >= 0 &&
+    Number.isInteger(parseInt(req.params.postID))
+  ) {
+    res.render("modules/post", {
+      post: data.posts[req.params.postID]
+    });
+  } else {
+    res.render("modules/post", {
+      post: {
+        title: "Error",
+        body: `Post ${req.params.postID} Not Found`
+      }
+    });
+  }
+});
+
 // -* POST Compose
 app.post("/compose", function (req, res) {
   console.log(`POST request for Compose`);
-  console.log(`\n`); 
-  
+  console.log(`\n`);
+
   const post = {
     id: data.posts.length,
     date: "2022-02-02",
     title: req.body.title,
-    body: req.body.post
+    body: req.body.post,
+    link: `/post/${data.posts.length}`
   };
 
   data.posts.push(post);
-  
+
   res.redirect("/");
 });
 

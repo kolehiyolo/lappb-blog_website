@@ -9,7 +9,8 @@ for (let i=0; i<4; i++) {
         id: i,
         date: "2022-02-02",
         title: `Test Post ${i+1}`,
-        body: "I am a post"
+        body: "I am a post",
+        link: `/post/${i}`
     };
 
     posts.push(postTemp);
