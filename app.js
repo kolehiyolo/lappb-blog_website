@@ -4,6 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const { functions } = require("lodash");
 const app = express();
 
 // -* Not sure what this does lol
@@ -20,13 +21,14 @@ app.use(express.static(__dirname + `/public`));
 // * DEMO DATA
 const data = require(`${__dirname}/public/javascript/data.js`);
 
+// * FUNCTIONS
+const kolehiyolo = require(`${__dirname}/public/javascript/functions.js`)
+
 // * EXPRESS ROUTES
 // -* Home Route
 app.get("/", function (req, res) {
   console.log(`GET request for Home Page`);
   console.log(`\n`);
-
-  // console.log(data.posts);
 
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
@@ -97,7 +99,8 @@ app.post("/compose", function (req, res) {
     date: "2022-02-02",
     title: req.body.title,
     body: req.body.post,
-    link: `/post/${data.posts.length}`
+    link: `/post/${data.posts.length}`,
+    thumb: kolehiyolo.ellipsize(req.body.post)
   };
 
   data.posts.push(post);
