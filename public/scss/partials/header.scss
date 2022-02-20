@@ -1,104 +1,56 @@
-.navbar {
-    // * Main
-    background-color: var(--color-element);
-    width: 100vw;
-    padding: 20px 50px;
-    
-    // ! TEST - I wanna see if it's aight to make the header elements vertically align with the main elements
-    // ! TEST - lol nah
-    // padding: 20px 175px;
+.header {
+    padding: 0;
+    margin: 0;
 
-    &-brand {
-        color: var(--color-primary-light);
-        
-        span {
+    .navbar {
+        // * Main
+        // background-color: var(--color-element);
+        width: 100vw;
+        padding: 20px 100px;
+
+        &-brand {
+            font-weight: 500;
             color: var(--color-text);
+
+            &-white {
+                color: var(--color-primary-light);
+            }
+
+            .current-page-header {
+                font-weight: 300;
+                font-style: italic;
+            }
         }
-    }
 
-    &-collapse {
-        ul {
-            gap: 10px;
-            li {
-                button {
-                    background-color: var(--color-element);
-                    border: none;
-                    // padding: 10px !important;
-                    padding: 0;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    width: 50px;
-                    height: 50px;
+        &-collapse {
+            ul {
+                gap: 10px;
+
+                li {
+                    button {
+                        background-color: var(--color-element);
+                        border: none;
+                        padding: 0;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        width: 50px;
+                        height: 50px;
 
 
-                    i {
-                        font-size: 24px;
-                        color: var(--color-text);
+                        i {
+                            font-size: 24px;
+                            color: var(--color-text);
+                        }
                     }
-                }
 
-                .add {
-                    background-image: var(--gradient-stripe);
-                    border-radius: 15px;
+                    .add {
+                        background-image: var(--gradient-stripe);
+                        border-radius: 15px;
+                    }
                 }
             }
         }
     }
-
-    // &-collapse {
-    //     flex-direction: row-reverse;
-    // }
-
-    // // * Flexbox
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: space-between;
-    // align-items: center;
-
-    // // * Positioning 
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // z-index: 200;
-
-    // &--title {
-    //     a {
-    //         // * Font
-    //         text-decoration: none;
-    //         text-transform: uppercase;
-    //         font-weight: 700;
-    //         font-style: italic;
-    //         letter-spacing: 4px;
-    //         font-size: 0.8rem;
-    //     }
-    // }
-
-    // &--nav {
-    //     // * Flexbox
-    //     display: flex;
-    //     flex-direction: row;
-    //     align-items: center;
-    //     gap: 30px;
-
-    //     &--item {
-    //         // * Font
-    //         text-decoration: none;
-    //         text-transform: lowercase;
-    //         font-size: 0.8rem;
-    //     }
-
-    //     &--resume {
-    //         // * Main
-    //         // background-color: var(--color-white);
-    //         background-image: var(--gradient-stripe);
-    //         border-radius: 10px;
-    //         padding: 10px 20px;
-
-    //         // * Font
-    //         // color: var(--color-element);
-    //     }
-    // }
 }

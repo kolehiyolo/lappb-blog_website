@@ -1,41 +1,40 @@
 .footer {
     // * Main
-    padding: 20px;
-    background-color: var(--color-element);
-    min-height: 110px;
-
-    // ! TEST - Checking to see if the footer links are working
-    // background-color: var(--color-white);
+    padding: 20px 100px;
+    // background-color: var(--color-element-lighter);
 
     // * Flexbox
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
 
     &--socials {
-        // * Flexbox
         display: flex;
         flex-direction: row;
+        gap: 10px;
         align-items: center;
-        gap: 20px;
 
-        &--link {
-            // * Font
+        .footer-links {
             text-decoration: none;
-            
+            flex-grow: 1;
+            flex-basis: 0;
+
             i {
-                // * Font
-                color: var(--color-text);
+                width: 30px;
+                text-align: center;
+                font-size: 25px;
             }
         }
     }
 
     &--copyright {
         p {
-            // * Font
-            font-size: 0.6rem;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            font-style: italic;
         }
     }
+
 }

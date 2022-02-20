@@ -14,36 +14,34 @@
     font-size: 18px;
 }
 
-@font-face {
-    font-family: "04B-30", serif;
-    src: url("../fonts/04B_30__.WOFF");
-    // src: url("../fonts/04B_30__.TTF");
-}
+// @font-face {
+//     font-family: "04B-30", serif;
+//     src: url("../fonts/04B_30__.WOFF");
+//     // src: url("../fonts/04B_30__.TTF");
+// }
 
-@font-face {
-    font-family: "8-bit Arcade In", serif;
-    src: url("../fonts/8-bit Arcade In.WOFF");
-    // src: url("../fonts/8-bit Arcade In.ttf");
-}
+// @font-face {
+//     font-family: "8-bit Arcade In", serif;
+//     src: url("../fonts/8-bit Arcade In.WOFF");
+//     // src: url("../fonts/8-bit Arcade In.ttf");
+// }
 
-@font-face {
-    font-family: "8-bit Arcade Out", serif;
-    src: url("../fonts/8-bit Arcade Out.WOFF");
-    // src: url("../fonts/8-bit Arcade Out.ttf");
-}
+// @font-face {
+//     font-family: "8-bit Arcade Out", serif;
+//     src: url("../fonts/8-bit Arcade Out.WOFF");
+//     // src: url("../fonts/8-bit Arcade Out.ttf");
+// }
 
-@font-face {
-    font-family: "Minecraft";
-    src: url("../fonts/Minecraft.eot");
-    // src: url("../fonts/Minecraft.TTF");
-}
+// @font-face {
+//     font-family: "Minecraft";
+//     src: url("../fonts/Minecraft.eot");
+//     // src: url("../fonts/Minecraft.TTF");
+// }
 
 // @font-face {
 //     font-family: "He's Dead Jim";
 //     src: url("../fonts/HesDeadJim.eot");
 // }
-
-
 
 // * Input Placeholders
 ::placeholder {
@@ -55,8 +53,11 @@
 :root {
     --color-primary: rgba(88, 166, 240, 1);
     --color-primary-light: rgb(146, 201, 251);
+    // --color-primary-light: rgb(146, 201, 251);
     --color-dark: rgb(12, 80, 144);
-    --color-element: rgba(22, 27, 34, 1);
+    // --color-element: rgba(22, 27, 34, 1);
+    // --color-element: rgb(23, 31, 41);
+    --color-element: rgb(15, 34, 58);
     --color-element-translucent: rgba(22, 27, 34, 0.75);
     --color-element-lighter: rgb(39, 41, 42);
     --color-background: rgba(13, 17, 23, 1);
@@ -64,10 +65,12 @@
     --color-white: rgba(255, 255, 255, 1);
     --color-text: rgba(255, 255, 255, 1);
     --color-text-lighter: rgba(158, 158, 158, 1);
+    --color-disabled: rgb(61, 61, 61);
     --color-border: rgb(47, 53, 60);
+    --gradient-stripe: linear-gradient(to right, #096fb8, #12d8fa, #a6f8ff);
+    --color-element-translucent: rgba(15, 34, 58, 0.50);
     // --color-border: rgb(48,54,61);
     // --gradient-stripe: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb);
-    --gradient-stripe: linear-gradient(to right, #096fb8, #12d8fa, #a6f8ff);
     // --gradient-stripe: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb);
 }
 
@@ -109,8 +112,10 @@ html {
         // * Header
         @import "partials/header.scss";
 
-        .main {
-            flex-grow: 1;
-        }
+        // * Main
+        @import "partials/main.scss";
+        
+        // * Footer
+        @import "partials/footer.scss";
     }
 }

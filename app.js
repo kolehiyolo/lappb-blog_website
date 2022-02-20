@@ -19,9 +19,6 @@ app.use(express.static(__dirname + `/public`));
 // * DEMO DATA
 const data = require(`${__dirname}/public/javascript/data.js`);
 
-// * FUNCTIONS
-const kolehiyolo = require(`${__dirname}/public/javascript/functions.js`)
-
 // * EXPRESS ROUTES
 // -* Home Route
 app.get("/", function (req, res) {
@@ -110,8 +107,7 @@ app.post("/compose", function (req, res) {
     date: "2022-02-02",
     title: req.body.title,
     body: req.body.post,
-    link: `/post/${data.posts.length}`,
-    thumb: kolehiyolo.ellipsize(req.body.post)
+    link: `/post/${data.posts.length}`
   };
 
   data.posts.push(post);
