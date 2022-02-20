@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+:root {
+  font-size: 18px; }
+
+@font-face {
+  font-family: "04B-30", serif;
+  src: url("../fonts/04B_30__.WOFF"); }
+
+@font-face {
+  font-family: "8-bit Arcade In", serif;
+  src: url("../fonts/8-bit Arcade In.WOFF"); }
+
+@font-face {
+  font-family: "8-bit Arcade Out", serif;
+  src: url("../fonts/8-bit Arcade Out.WOFF"); }
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("../fonts/Minecraft.eot"); }
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--color-placeholder); }
+
+:root {
+  --color-primary: rgba(88, 166, 240, 1);
+  --color-primary-light: rgb(146, 201, 251);
+  --color-dark: rgb(12, 80, 144);
+  --color-element: rgba(22, 27, 34, 1);
+  --color-element-translucent: rgba(22, 27, 34, 0.75);
+  --color-element-lighter: rgb(39, 41, 42);
+  --color-background: rgba(13, 17, 23, 1);
+  --color-background-2: rgb(12, 31, 56);
+  --color-white: rgba(255, 255, 255, 1);
+  --color-text: rgba(255, 255, 255, 1);
+  --color-text-lighter: rgba(158, 158, 158, 1);
+  --color-border: rgb(47, 53, 60);
+  --gradient-stripe: linear-gradient(to right, #096fb8, #12d8fa, #a6f8ff); }
+
+:root {
+  --font-serif: 'Merriweather', serif;
+  --font-sans-serif: 'Montserrat', sans-serif; }
+
+html {
+  min-height: 100vh;
+  scroll-behavior: smooth; }
+  html * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; }
+  html * {
+    font-family: var(--font-sans-serif);
+    color: var(--color-text); }
+  html body {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column; }
+    html body .navbar {
+      background-color: var(--color-element);
+      width: 100vw;
+      padding: 20px 50px; }
+      html body .navbar-brand {
+        color: var(--color-primary-light); }
+        html body .navbar-brand span {
+          color: var(--color-text); }
+      html body .navbar-collapse ul {
+        gap: 10px; }
+        html body .navbar-collapse ul li button {
+          background-color: var(--color-element);
+          border: none;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px; }
+          html body .navbar-collapse ul li button i {
+            font-size: 24px;
+            color: var(--color-text); }
+        html body .navbar-collapse ul li .add {
+          background-image: var(--gradient-stripe);
+          border-radius: 15px; }
+    html body .main {
+      flex-grow: 1; }

@@ -1,0 +1,52 @@
+<%- include(`../partials/header`) -%>
+
+<h1>Home</h1>
+<!-- <p><%=sample.slice(0,400)%></p> -->
+
+<div class="posts d-grid gap-4">
+    <%postsArray.forEach(function(post,index){%>
+    <%if (index===0 || index%6===0) {%>
+    <div class="row">
+        <%};%>
+        <div class="card-container col-sm-2">
+            <div class="posts--thumb card col-12">
+                <!-- <div class="posts--thumb card"> -->
+                <img src="/images/greenery-1.jpg" alt="greenery-1" class="card-img">
+                <span class="card-date position-absolute badge rounded-pill bg-light text-dark">
+                    <%=post.date%>
+                    <span class="visually-hidden">unread messages</span>
+                  </span>
+                    <h5 class="card-title text-light position-absolute translate-middle"><%=post.title%></h5>
+                <div class="card-body">
+                    <p class="card-text"><%=post.thumb%></p>
+                    <!-- <p><i><%=JSON.stringify(post)%></i></p> -->
+                    <a href="<%=post.link%>" role="button" class="card-btn btn btn-primary col-12">Go to Post</a>
+                </div>
+            </div>
+        </div>
+        <%if ((index+1)%6===0 || postsArray[index+1] === undefined) {%>
+            <% if(postsArray[index+1] === undefined) { %>
+                <div class="card-container col-sm-2">
+                    <div class="posts--thumb card col-12">
+                        <div class="card-img card-empty-img"></div>
+                        <span class="card-date position-absolute badge rounded-pill bg-light text-dark">
+                            Today
+                            <span class="visually-hidden">unread messages</span>
+                          </span>
+                            <h5 class="card-title text-light position-absolute translate-middle">Empty</h5>
+                        <div class="card-body">
+                            <p class="card-text">Write a new post</p>
+                            <a href="/compose" role="button" class="card-btn btn btn-dark col-12">Write a Post</a>
+                        </div>
+                    </div>
+                </div>
+            <% }; %>
+    </div>
+    <%};%>
+    <%});%>
+
+</div>
+
+
+
+<%- include(`../partials/footer`) -%>

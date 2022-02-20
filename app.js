@@ -1,11 +1,9 @@
-//jshint esversion:6
-
 // * NODE DEPENDENCIES DECLARATIONS
 const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const { functions } = require("lodash");
 const app = express();
+const bodyParser = require("body-parser");
+// const ejs = require("ejs");
+const lodash = require("lodash");
 
 // -* Not sure what this does lol
 app.use(bodyParser.urlencoded({
@@ -30,6 +28,19 @@ app.get("/", function (req, res) {
   console.log(`GET request for Home Page`);
   console.log(`\n`);
 
+  // data.Entry.find({},(error,result)=>{
+  //   if (error) {
+  //     console.log(error); 
+  //   } else {
+  //     console.log(`Fetched items successfully`);
+
+  //     res.render(`modules/home`, {
+  //       sample: data.homeStartingContent,
+  //       postsArray: data.posts
+  //     });
+  //   }
+  // });
+  
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
     postsArray: data.posts

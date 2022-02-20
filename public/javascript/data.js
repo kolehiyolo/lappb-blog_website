@@ -4,26 +4,45 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const kolehiyolo = require(`./functions`);
 
-// let posts = [];
-
 let posts = kolehiyolo.buildSamples(10);
 
-// okays
+const global = {
+    mongoose: undefined,
+    entrySchema: undefined,
+    Entry: undefined,
+}
 
-// for (let i=0; i<4; i++) {
-//     let postTemp = {
-//         id: i,
-//         date: "2022-02-02",
-//         title: `Test Post ${i+1}`,
-//         body: "I am a post",
-//         link: `/post/${i}`,
-//         thumb: `I am a post`
-//     };
+function activate() {
+    // * Connect to DB with Mongoose
+    global.mongoose = require(`mongoose`);
+    global.mongoose.connect(`mongodb://localhost:27017/ubermenschDB`);
 
-//     posts.push(postTemp);
-// }
+    // * Build Schema
+    global.entrySchema = new global.mongoose.Schema({
+        date: {
+            type: Date,
+            required: true
+        },
+        title: {
+            type: String,
+            required: true
+        },
+        link: {
+            type: String,
+            required: true
+        },
+        content: {
+            type: String,
+            required: true
+        },
+    });
+
+    // * Build Mongoose Model
+    global.Entry = mongoose.model("entry", global.entrySchema);
+}
 
 module.exports = {
+    activate: activate,
     homeStartingContent: homeStartingContent,
     aboutContent: aboutContent,
     contactContent: contactContent,

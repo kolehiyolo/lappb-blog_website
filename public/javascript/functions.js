@@ -43,11 +43,11 @@ function buildSamples(count) {
             id: i,
             date: `2022, Feb ${i+1}`,
             title: `Test Post ${i+1}`,
-            body: lorem.slice(loremBorders[0], loremBorders[1]),
+            content: lorem.slice(loremBorders[0], loremBorders[1]),
             link: `/post/${i}`
         };
 
-        postTemp.thumb = ellipsize(postTemp.body);
+        postTemp.thumb = ellipsize(postTemp.content);
         result.push(postTemp);
     }
 

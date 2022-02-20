@@ -1,0 +1,41 @@
+.footer {
+    // * Main
+    padding: 20px;
+    background-color: var(--color-element);
+    min-height: 110px;
+
+    // ! TEST - Checking to see if the footer links are working
+    // background-color: var(--color-white);
+
+    // * Flexbox
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &--socials {
+        // * Flexbox
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+
+        &--link {
+            // * Font
+            text-decoration: none;
+            
+            i {
+                // * Font
+                color: var(--color-text);
+            }
+        }
+    }
+
+    &--copyright {
+        p {
+            // * Font
+            font-size: 0.6rem;
+        }
+    }
+}

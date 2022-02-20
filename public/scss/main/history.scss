@@ -1,0 +1,175 @@
+&--history {
+    &--body {
+        // * Flexbox
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 50px;
+
+        &--experience,
+        &--education {
+            // * Main
+            width: 50%;
+
+            // * Grid
+            display: grid;
+            grid-template-areas:
+                "head nav"
+                "body body";
+            gap: 20px;
+
+            &--head {
+                // * Flexbox
+                display: flex;
+                flex-direction: row;
+                gap: 25px;
+                align-items: center;
+                grid-area: head;
+
+                // * Font
+                font-size: 1rem;
+
+                h3 {
+                    // * Font
+                    font-family: var(--font-serif);
+                }
+            }
+
+            &--nav {
+                // * Flexbox
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                gap: 25px;
+                align-items: center;
+                grid-area: nav;
+
+                &--item {
+                    // * Main
+                    border: none;
+                    width: 45px;
+                    height: 45px;
+                    // background-color: var(--color-white);
+                    background-color: var(--color-element);
+                    padding: 10px 15px;
+                    border-radius: 10px;
+                    border-radius: 50%;
+                    border: solid 1px var(--color-border);
+
+                    // * Flexbox
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+
+                    // * Font
+                    font-family: var(--font-sans-serif);
+                    // color: var(--color-element);
+                    color: var(--color-text);
+                    font-weight: 700;
+                    font-size: 0.8rem;
+                }
+
+                &__active {
+                    // * Main
+                    background-color: var(--color-text);
+
+                    // * Font
+                    color: var(--color-element);
+                }
+            }
+
+            &--body {
+                // * Main
+                grid-area: body;
+
+                // * Flexbox
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            &--item {
+                // * Main
+                padding: 20px;
+                padding: 30px;
+                border-radius: 10px;
+                border-radius: 25px;
+                background-color: var(--color-element);
+                border: solid 1px var(--color-text-lighter);
+                border: solid 2px var(--color-border);
+                // background-color: var(--color-element-lighter);
+
+                &--head {
+                    // * Grid
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    grid-template-areas: 
+                        "org duration"
+                        "title title"
+                        "hr hr";
+                    gap: 10px;
+
+                    p {
+                        // * Font
+                        font-style: italic;
+                        font-size: 0.7rem;
+                    }
+
+                    &--org {
+                        grid-area: org;
+                        color: var(--color-primary);
+                    }
+
+                    &--duration {
+                        grid-area: duration;
+                        border-left: solid 2px var(--color-white);
+                        padding-left: 15px;
+                    }
+
+                    &--title {
+                        grid-area: title;
+                        font-family: var(--font-serif);
+                        font-size: 0.9rem;
+                    }
+
+
+                    hr {
+                        grid-area: hr;
+                        // width: 400px;
+                        border: none;
+                        border-bottom: solid 1px var(--color-primary);
+                        border-bottom: solid 3px var(--color-primary);
+                        border-radius: 10px;
+                        margin: 10px 0;
+                    }
+                }
+
+                &--body {
+                    &--description {
+                        // * Font
+                        font-size: 0.7rem;
+                    }
+
+                    &--list {
+                        // * Main
+                        padding-left: 20px;
+                        margin-top: 20px;
+
+                        // * Font
+                        font-size: 0.7rem;
+
+                        // * Grid
+                        display: grid;
+                        // grid-template-columns: 1fr 1fr;
+                    }    
+                }
+            }
+
+        }
+
+        &--experience {}
+
+        &--education {}
+    }
+}

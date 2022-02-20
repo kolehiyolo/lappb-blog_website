@@ -1,0 +1,43 @@
+&--about {
+    // * Main
+    // background-color: var(--color-border);
+
+    &--body {
+        // * Flexbox
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+
+        // ! TEST - Let's set up dem borders just for visibility
+        &--image,
+        &--text {
+            // border: dashed 1px red;
+        }
+
+        &--image {
+            &--image {
+                // ! TEST - This is just a placeholder for the actual image
+                background-color: var(--color-white);
+                width: 450px;
+                height: 100%;
+                border-radius: 10px;
+            }
+        }
+
+        &--text {
+            &--intro {
+                // * Fonts
+                font-family: var(--font-serif);
+                font-weight: 700;
+            }
+
+            p {
+                // * Main
+                margin-bottom: 20px;
+                
+                // * Font
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+&--hero {
+    // * Main
+    padding: 100px 175px;
+    background-image: linear-gradient(to bottom, var(--color-background), var(--color-background-2));
+
+    // * Flexbox
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+
+    &--intro {
+        // * Flexbox
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+
+        &--greeting {
+            // * Font
+            font-family: var(--font-sans-serif);
+            font-size: 1.5rem;
+            color: var(--color-text-lighter);
+            font-style: italic;
+
+            // * Main
+            margin-bottom: 20px;
+        }
+
+        &--main {
+            // * Font
+            font-family: var(--font-serif);
+            font-size: 2rem;
+
+            span {
+                // display: block;
+                font-family: var(--font-serif);
+            }
+        }
+
+        &--description {
+            // * Font
+            color: var(--color-text-lighter);
+            color: var(--color-text);
+            font-weight: 400;
+            font-family: var(--font-sans-serif);
+            font-size: 1rem;
+            // font-style: italic;
+        }
+    }
+
+    &--image {
+        &--image {
+            // ! TEST - this "image" div is just gonna be a placeholder for the image
+            // width: 500px;
+            // height: 500px;
+            // width: 400px;
+            // height: 400px;
+            width: 350px;
+            height: 350px;
+            background-color: var(--color-white);
+            border-radius: 50%;
+        }
+    }
+}

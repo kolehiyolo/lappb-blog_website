@@ -1,0 +1,21 @@
+#attribution {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.5rem;
+    padding: 20px;
+    margin-top: auto;
+
+    * {
+        margin: 10px;
+    }
+
+    // ! TEST - For now, we'll be hiding the attribution
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+}
