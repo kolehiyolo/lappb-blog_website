@@ -5,28 +5,42 @@
 <%- include(`../partials/head`) -%>
 
 <!-- * BODY -->
+
 <body>
 
     <!-- * Header -->
-    <%- include(`../partials/header`) -%>  
+    <%- include(`../partials/header`) -%>
 
     <!-- * Main -->
     <main class="main--compose">
         <!-- <h1>Compose</h1> -->
-        <form action="/compose" method="POST" class="compose--form">
-            <div class="form-group">
-                <!-- <label class="form-label" for="title">Title</label> -->
-                <input class="form-control title-input" id="title" name="title" type="text" placeholder="Write your title here...">
+        <form action="/compose" method="POST" class="main--compose--form">
+            <div class="main--compose--form--header">
+                <div class="main--compose--form--header--title form-group">
+                    <!-- <label class="form-label" for="title">Title</label> -->
+                    <input class="form-control compose-title" id="title" name="title" type="text" placeholder="Write your title here...">
+                </div>
+                <div class="main--compose--form--header--date form-group">
+                    <!-- <label class="form-label" for="title">Title</label> -->
+                    <input class="form-control compose-date" id="date" name="date" type="date" value="<%=date%>" placeholder="Write your title here...">
+                </div>
             </div>
-            <div class="form-group post-body-form">
-                <!-- <label class="form-label" for="post">Post</label> -->
-                <textarea class="form-control post-body" id="post" name="post" placeholder="Write your thoughts here..."></textarea>
+            <div class="main--compose--form--body">
+                <div class="main--compose--form--body--body form-group">
+                    <!-- <label class="form-label" for="post">Post</label> -->
+                    <textarea class="form-control compose-body" id="post" name="post" placeholder="Write your thoughts here..."></textarea>
+                </div>
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary" name="submit" type="submit">Publish</button>
+            <div class="main--compose--form--footer">
+                <div class="main--compose--form--footer--submit form-group">
+                    <button class="btn btn-primary compose-submit" name="submit" type="submit">Publish</button>
+                </div>
+                <div class="main--compose--form--footer--draft form-group">
+                    <button class="btn btn-primary compose-draft" name="draft" type="submit">Draft</button>
+                </div>
             </div>
         </form>
-    </main>  
+    </main>
 
     <!-- * Footer -->
     <%- include(`../partials/footer`) -%>

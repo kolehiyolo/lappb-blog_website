@@ -45,22 +45,38 @@ html {
     html body .header {
       padding: 0;
       margin: 0; }
-      html body .header .navbar {
+      html body .header--navbar {
         width: 100vw;
         padding: 20px 60px; }
-        html body .header .navbar-brand {
-          font-weight: 500;
-          color: var(--color-text); }
-          html body .header .navbar-brand-white {
-            color: var(--color-primary-light); }
-          html body .header .navbar-brand .current-page-header {
-            font-weight: 300;
-            font-style: italic; }
-        html body .header .navbar-collapse ul {
+        html body .header--navbar--title {
+          color: var(--color-text);
+          display: flex;
+          flex-direction: row;
+          font-size: 20px;
           gap: 10px; }
-          html body .header .navbar-collapse ul li a {
+          html body .header--navbar--title--brand {
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s;
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0); }
+            html body .header--navbar--title--brand--blue {
+              color: var(--color-primary-light);
+              transition: all 0.25s; }
+            html body .header--navbar--title--brand:hover {
+              color: var(--color-text) !important;
+              text-shadow: 0px 0px 4px white; }
+              html body .header--navbar--title--brand:hover * {
+                color: var(--color-text) !important; }
+          html body .header--navbar--title--current {
+            font-weight: 300;
+            font-style: italic;
+            background-color: var(--color-background);
+            border: none; }
+        html body .header--navbar--menu ul {
+          gap: 10px; }
+          html body .header--navbar--menu ul li a {
             text-decoration: none; }
-          html body .header .navbar-collapse ul li button {
+          html body .header--navbar--menu ul li button {
             background-color: var(--color-element);
             border: none;
             padding: 0;
@@ -70,10 +86,10 @@ html {
             align-items: center;
             width: 50px;
             height: 50px; }
-            html body .header .navbar-collapse ul li button i {
+            html body .header--navbar--menu ul li button i {
               font-size: 24px;
               color: var(--color-text); }
-          html body .header .navbar-collapse ul li .add {
+          html body .header--navbar--menu ul li .add {
             background-image: var(--gradient-stripe);
             border-radius: 15px; }
     html body .main--calendar {
@@ -171,7 +187,8 @@ html {
                 padding: 0px 10px;
                 font-weight: bold;
                 font-style: italic;
-                font-size: 13px; }
+                font-size: 13px;
+                user-select: none; }
     html body .main--compose {
       flex-grow: 1;
       padding: 0px 60px;
@@ -179,32 +196,48 @@ html {
       display: flex;
       flex-direction: column;
       justify-content: stretch; }
-      html body .main--compose .compose--form {
+      html body .main--compose--form {
         display: flex;
         flex-direction: column;
         gap: 20px;
         flex-grow: 1; }
-        html body .main--compose .compose--form .post-body-form {
+        html body .main--compose--form--header {
+          display: flex;
+          flex-direction: row;
+          gap: 20px; }
+          html body .main--compose--form--header--title {
+            flex-grow: 1; }
+        html body .main--compose--form--body {
           flex-grow: 1;
           display: flex;
           flex-direction: column;
           justify-content: stretch; }
-        html body .main--compose .compose--form .form-group .title-input {
+          html body .main--compose--form--body--body {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            flex-grow: 1; }
+            html body .main--compose--form--body--body .compose-body {
+              height: 100%; }
+        html body .main--compose--form--footer {
+          display: flex;
+          flex-direction: row;
+          gap: 20px; }
+          html body .main--compose--form--footer--submit button {
+            border: none; }
+          html body .main--compose--form--footer--draft button {
+            background-color: var(--color-disabled) !important;
+            border: none; }
+        html body .main--compose--form .form-group .compose-title, html body .main--compose--form .form-group .compose-date, html body .main--compose--form .form-group .compose-body {
           background-color: var(--color-background);
           color: var(--color-text);
-          border: none;
-          border-right: solid 2px white;
-          border-bottom: solid 2px white;
+          border: solid 2px var(--color-dark); }
+        html body .main--compose--form .form-group .compose-title, html body .main--compose--form .form-group .compose-date, html body .main--compose--form .form-group .compose-submit, html body .main--compose--form .form-group .compose-draft {
           font-size: 25px; }
-        html body .main--compose .compose--form .form-group .post-body {
-          background-color: var(--color-background);
-          color: var(--color-text);
-          border: none;
-          border-right: solid 2px white;
-          border-bottom: solid 2px white;
+        html body .main--compose--form .form-group .compose-body {
+          font-size: 14px;
           height: 100%;
-          flex-grow: 1;
-          font-size: 14px; }
+          flex-grow: 1; }
     html body .footer {
       padding: 20px 60px;
       display: flex;

@@ -168,7 +168,7 @@ function buildCalendarDiv(currentPage) {
 
     $(`.calendar`).remove();
 
-    $(`.current-page-header`).html(`${currentDate.monthString} ${currentDate.year}`);
+    $(`.header--navbar--title--current`).html(`${currentDate.monthString} ${currentDate.year}`);
 
     let calendarDivHTML = `<div class="calendar">`;
 
@@ -226,18 +226,29 @@ function buildCalendarDiv(currentPage) {
 }
 
 function changeActiveDate(year, month, date) {
-    $(`.calendar--day--active`).addClass(`calendar--day--current`);
-    $(`.calendar--day--active`).removeClass(`calendar--day--active`);
+    if ($(`.date--${year}-${month}-${date}`).hasClass(`calendar--day--active`)) {
+        month++;
+        let trail = `${year}`;
+        trail += `-${(month < 10) ? `0${month}` : month}`;
+        trail += `-${(date < 10) ? `0${date}` : date}`;
+        console.log(`trail = ${trail}`); 
+        window.location.href = `/compose/${trail}`;
+    } else {
+        $(`.calendar--day--active`).addClass(`calendar--day--current`);
+        $(`.calendar--day--active`).removeClass(`calendar--day--active`);
 
-    activeDate = {
-        year: year,
-        month: month,
-        date: date
-    };
+        activeDate = {
+            year: year,
+            month: month,
+            date: date
+        };
 
-    $(`.date--${year}-${month}-${date}`).addClass(`calendar--day--active`);
-    $(`.date--${year}-${month}-${date}`).removeClass(`calendar--day--current`);
+        $(`.date--${year}-${month}-${date}`).addClass(`calendar--day--active`);
+        $(`.date--${year}-${month}-${date}`).removeClass(`calendar--day--current`);
+    }
 }
+
+let activeChosenAlready = false;
 
 function moveCalendarPage(direction) {
     const newPage = (direction === "next") ? {
@@ -256,4 +267,4 @@ function moveCalendarPage(direction) {
 
 // getCalendarPage(1998,11,21);
 // getCalendarPage(2021, 7, 17);
-getCalendarPage(currentDate.year,currentDate.month,currentDate.date);
+getCalendarPage(currentDate.year, currentDate.month, currentDate.date);

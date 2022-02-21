@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
   //     });
   //   }
   // });
-  
+
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
     postsArray: data.posts,
@@ -72,7 +72,27 @@ app.get("/compose", function (req, res) {
 
   res.render("modules/compose", {
     sample: "",
-    pageHeader: `New Post`
+    pageHeader: `New Post`,
+    date: ``,
+    // year: ``,
+    // month: ``,
+    // date: ``
+  });
+});
+
+app.get("/compose/:date", function (req, res) {
+  console.log("GET request for Compose Page");
+  console.log(`\n`);
+
+  // const stuff = req.params.date.split(`-`);
+
+  res.render("modules/compose", {
+    sample: "",
+    pageHeader: `New Post`,
+    date: req.params.date,
+    // year: stuff[0],
+    // month: (stuff[1] < 10) ? `0${stuff[1]}` : stuff[1],
+    // date: (stuff[2] < 10) ? `0${stuff[2]}` : stuff[2]
   });
 });
 
