@@ -1,0 +1,52 @@
+.main--compose {
+    flex-grow: 1;
+    padding: 0px 60px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    .compose--form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex-grow: 1;
+
+        .post-body-form {
+            // flex-grow: 1 !important;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            // flex-basis: 0;
+        }
+
+        .form-group {
+
+            // flex-grow: 0;
+            .title-input {
+                background-color: var(--color-background);
+                // background-color: var(--color-element);
+                color: var(--color-text);
+                border: none;
+                border-right: solid 2px white;
+                border-bottom: solid 2px white;
+                font-size: 25px;
+
+            }
+
+            .post-body {
+                background-color: var(--color-background);
+                // background-color: var(--color-element);
+                color: var(--color-text);
+                border: none;
+                border-right: solid 2px white;
+                border-bottom: solid 2px white;
+                height: 100%;
+                flex-grow: 1;
+
+                font-size: 14px;
+            }
+        }
+    }
+}

@@ -40,7 +40,8 @@ app.get("/", function (req, res) {
   
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
-    postsArray: data.posts
+    postsArray: data.posts,
+    pageHeader: ``,
   });
 });
 
@@ -70,7 +71,8 @@ app.get("/compose", function (req, res) {
   console.log(`\n`);
 
   res.render("modules/compose", {
-    sample: ""
+    sample: "",
+    pageHeader: `New Post`
   });
 });
 

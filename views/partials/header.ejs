@@ -1,6 +1,6 @@
 <header class="header">
   <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">über<span class="navbar-brand-white">mensch</span> | <span class="current-page-header"></span></a>
+    <a class="navbar-brand" href="/">über<span class="navbar-brand-white">mensch</span> | <span class="current-page-header"><%=pageHeader%></span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,9 +17,11 @@
           </button>
         </li>
         <li class="nav-item">
-          <button class="nav-link add" href="#">
-            <i class="fa-solid fa-plus"></i>
-          </button>
+          <a href="/compose">
+            <button class="nav-link add" href="#">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </a>
         </li>
       </ul>
     </div>

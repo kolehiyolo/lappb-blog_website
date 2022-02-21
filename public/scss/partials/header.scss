@@ -6,7 +6,7 @@
         // * Main
         // background-color: var(--color-element);
         width: 100vw;
-        padding: 20px 100px;
+        padding: 20px 60px;
 
         &-brand {
             font-weight: 500;
@@ -27,6 +27,10 @@
                 gap: 10px;
 
                 li {
+                    a {
+                        text-decoration: none;
+                    }
+
                     button {
                         background-color: var(--color-element);
                         border: none;

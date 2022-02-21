@@ -222,7 +222,7 @@ function buildCalendarDiv(currentPage) {
     calendarDivHTML += calendarDivBodyHTML;
     calendarDivHTML += `</div>`;
 
-    $(`.main`).append(calendarDivHTML);
+    $(`.main--calendar`).append(calendarDivHTML);
 }
 
 function changeActiveDate(year, month, date) {
