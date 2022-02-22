@@ -5,20 +5,36 @@
 <%- include(`../partials/head`) -%>
 
 <!-- * BODY -->
+
 <body>
 
     <!-- * Header -->
-    <%- include(`../partials/header`) -%>  
+    <%- include(`../partials/header`) -%>
 
     <!-- * Main -->
     <main class="main--calendar">
-
-    </main>  
+    </main>
 
     <!-- * Footer -->
     <%- include(`../partials/footer`) -%>
 
     <script src="javascript/client/calendar.js"></script>
+    <script>
+        getCurrentDate();
+        getAllCalendarPages();
+        changeActiveDate(currentDate.year, currentDate.month, currentDate.date);
+        let activeCalendarPage = findCalendarPage(currentDate.year, currentDate.month);
+        
+        // console.log(findCalendarPage(1998,11)); 
+        addEventListeners();
+        
+        let entryDB = <%-entryDBProxy%>;
+        console.log(entryDB);
+        </script>
+    <script src="javascript/client/pseudodata.js"></script>
+    <script>
+        buildCalendarDiv(activeCalendarPage);
+    </script>
 </body>
 
 </html>

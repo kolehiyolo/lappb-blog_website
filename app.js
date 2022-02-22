@@ -38,10 +38,25 @@ app.get("/", function (req, res) {
   //   }
   // });
 
+  let headerCalendarPicker = ``;
+  headerCalendarPicker += `<div class="header--navbar--title--current--date-picker">`;
+  headerCalendarPicker += `<p></p>`;
+  headerCalendarPicker += `<input class="header--navbar--title--current--date-picker--input" id="date" name="date" type="date" value="" max="2050-12-31" min="1950-01-01">`;
+  headerCalendarPicker += `</div>`;
+
+  // let entryDBProxy = JSON.stringify(data.posts).replace(/\&#34;/gm,"");
+  // let entryDBProxy = JSON.stringify(data.posts);
+  // console.log(entryDBProxy); 
+
+  // console.log(JSON.stringify(data.posts));
   res.render(`modules/home`, {
     sample: data.homeStartingContent,
     postsArray: data.posts,
-    pageHeader: ``,
+    pageHeader: headerCalendarPicker,
+    // entryDB: "what",
+    // entryDB: JSON.stringify(data.posts),
+    // entryDBProxy: data.posts,
+    entryDBProxy: JSON.stringify(data.posts),
   });
 });
 
@@ -124,14 +139,54 @@ app.post("/compose", function (req, res) {
   console.log(`POST request for Compose`);
   console.log(`\n`);
 
+  // const post = {
+  //   id: data.posts.length,
+  //   date: "2022-02-02",
+  //   title: req.body.title,
+  //   body: req.body.post,
+  //   link: `/post/${data.posts.length}`
+  // };
+
+  const saveDate = new Date();
+  const reqDate = req.body.date.split("-");
+  const stampDate = {
+    year: parseInt(reqDate[0]),
+    month: parseInt(reqDate[1])-1,
+    date: parseInt(reqDate[2])
+  }
+
   const post = {
-    id: data.posts.length,
-    date: "2022-02-02",
+    _id: data.posts.length,
     title: req.body.title,
-    body: req.body.post,
-    link: `/post/${data.posts.length}`
+    stamp: {
+      date: JSON.parse(JSON.stringify(stampDate)),
+      time: {
+        hour: 6,
+        minutes: 0,
+        seconds: 0
+      }
+    },
+    posted: {
+      date: {
+        year: parseInt(saveDate.getFullYear()),
+        month: parseInt(saveDate.getMonth()),
+        date: parseInt(saveDate.getDate())
+      },
+      time: {
+        hour: parseInt(saveDate.getHours()),
+        minutes: parseInt(saveDate.getMinutes()),
+        seconds: parseInt(saveDate.getSeconds()),
+      }
+    },
+    content: req.body.post,
+    image: "/images/test.img",
+    status: "Done"
+    // link: `/post/${data.posts.length}`
   };
 
+  post.edited = JSON.parse(JSON.stringify(post.posted));
+
+  console.log(post);
   data.posts.push(post);
 
   res.redirect("/");

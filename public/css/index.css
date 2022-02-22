@@ -71,7 +71,37 @@ html {
             font-weight: 300;
             font-style: italic;
             background-color: var(--color-background);
-            border: none; }
+            border: none;
+            transition: all 0.25s;
+            text-shadow: 0px 0px 2px rgba(255, 255, 255, 0); }
+            html body .header--navbar--title--current:hover {
+              text-shadow: 0px 0px 4px white; }
+            html body .header--navbar--title--current--date-picker {
+              position: relative; }
+              html body .header--navbar--title--current--date-picker--input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+                box-sizing: border-box;
+                outline: 0;
+                padding: .75rem;
+                background-color: red;
+                width: 100%;
+                opacity: 0.5;
+                opacity: 0;
+                height: 100%; }
+              html body .header--navbar--title--current--date-picker input[type="date"]::-webkit-calendar-picker-indicator {
+                background: transparent;
+                bottom: 0;
+                color: transparent;
+                cursor: pointer;
+                height: auto;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: auto; }
         html body .header--navbar--menu ul {
           gap: 10px; }
           html body .header--navbar--menu ul li a {
@@ -189,6 +219,16 @@ html {
                 font-style: italic;
                 font-size: 13px;
                 user-select: none; }
+              html body .main--calendar .calendar--body .calendar--week .calendar--day--title {
+                padding: 0px 10px;
+                text-align: center;
+                width: 100%;
+                font-size: 12px;
+                color: var(--color-white);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); }
     html body .main--compose {
       flex-grow: 1;
       padding: 0px 60px;

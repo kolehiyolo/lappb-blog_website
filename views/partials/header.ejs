@@ -4,7 +4,7 @@
       <a class="header--navbar--title--brand navbar-title-brand" href="/">über<span class="header--navbar--title--brand--blue">mensch</span>
       </a>
       <span> | </span>
-      <button class="header--navbar--title--current"><%=pageHeader%></button>
+      <button class="header--navbar--title--current"><%-pageHeader%></button>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -22,11 +22,11 @@
           </button>
         </li>
         <li class="nav-item">
-          <a href="/compose">
-            <button class="nav-link add" href="#">
+          <!-- <a href="/compose"> -->
+            <button class="nav-link add" href="#" onclick="writeForToday()">
               <i class="fa-solid fa-plus"></i>
             </button>
-          </a>
+          <!-- </a> -->
         </li>
       </ul>
     </div>
