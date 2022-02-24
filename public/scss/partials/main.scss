@@ -110,6 +110,7 @@
 
                     &--active {
                         background-color: var(--color-dark);
+                        box-shadow: 0px 0px 10px 0px var(--color-primary-light);
 
                         .calendar--day--date {
                             background-color: var(--color-primary-light);
