@@ -1,124 +1,122 @@
+// * calendar.js
+// This file contains all the scripts needed to make the Calendar functionalities work on the homepage
+
+// const {result} = require("lodash");
+
 // * Global Variables
-let currentDate;
-let activeDate = {};
-let allCalendarPages = [];
-let minYear = 1950;
-let maxYear = 2050;
-let activeCalendarPageIndex;
+// I just like having a global object with properties used all throughout the file 
+let calendarJS = {
+    currentDate: undefined, // Should contain the current date and time
+    activeDate: undefined, // Should contain the data for the selected date by the user
+    allCalendarPages: [], // Should be a massive array containing all the "Calendar Pages", each of which contain 42 "Calendar Dates"
+    minYear: 1950, // Should indicate the minimum year the calendar can get to 
+    maxYear: 2050, // Should indicate the maximum 
+    activeCalendarPage: [], // Should contain the selected Calendar Page extracted from allCalendarPages
+    activeCalendarPageIndex: undefined, // Should indicate the index used to fetch the selected Calendar Page from allCalendarPages, which is then passed to activeCalendarPage
+}
 
-function getCurrentDate() {
+// * Converter Functions
+// Functions that accept input data then return the appropriate output data
+calendarJS.daysInMonth = (month, year) => { // * OKAY
+    // This returns the number of days in a month
+
+    // Month in JavaScript is 0-indexed (January is 0, February is 1, etc), but
+    // by using 0 as the day it will give us the last day of the prior month. So
+    // passing in 1 as the month number will return the last day of January, not
+    // February
+    return new Date(year, month, 0).getDate();
+}
+
+calendarJS.getMonthString = (month) => { // * OKAY
+    // This returns the string equivalent of a month
+    return (month === 0) ? `January` :
+        (month === 1) ? `February` :
+        (month === 2) ? `March` :
+        (month === 3) ? `April` :
+        (month === 4) ? `May` :
+        (month === 5) ? `June` :
+        (month === 6) ? `July` :
+        (month === 7) ? `August` :
+        (month === 8) ? `September` :
+        (month === 9) ? `October` :
+        (month === 10) ? `November` :
+        `December`;
+}
+
+// * State-change Functions
+// Functions that change the values on the global object, values that the app are dependent on when indicating states
+calendarJS.getCurrentDate = () => { // * OKAY
     // This sets the currentDate object the proper values
-    // console.log(`getCurrentDate()`);
-
+    let result;
     const date = new Date();
 
-    currentDate = {
+    result = {
         year: date.getFullYear(),
         month: date.getMonth(),
         date: date.getDate(),
         day: date.getDay()
     }
 
-    currentDate.monthString = getMonthString(currentDate.month);
-    // currentDate.day = new Date(currentDate.year, currentDate.month, currentDate.date).getDay();
+    // Here we fetch the string version of the month
+    result.monthString = calendarJS.getMonthString(result.month);
 
-    // console.log(currentDate);
+    return result;
 }
 
-function daysInMonth(month, year) {
-    // This returns the number of days in a month
-
-    // Month in JavaScript is 0-indexed (January is 0, February is 1, etc), 
-    // but by using 0 as the day it will give us the last day of the prior
-    // month. So passing in 1 as the month number will return the last day
-    // of January, not February
-    return new Date(year, month, 0).getDate();
-}
-
-function getMonthString(month) {
-    // This returns the string equivalent of a month
-    // console.log(`getMonthString()`);
-
-    switch (month) {
-        case 0:
-            return `January`;
-        case 1:
-            return `February`;
-        case 2:
-            return `March`;
-        case 3:
-            return `April`;
-        case 4:
-            return `May`;
-        case 5:
-            return `June`;
-        case 6:
-            return `July`;
-        case 7:
-            return `August`;
-        case 8:
-            return `September`;
-        case 9:
-            return `October`;
-        case 10:
-            return `November`;
-        case 11:
-            return `December`;
-    }
-}
-
-function getActiveDate() {
+calendarJS.getActiveDate = () => { // ? NOT SURE LOL
 
 }
 
-function getCalendarPage(year, month) {
+// * Calendar-Data Functions
+// Functions that build the massive amounts of data that is used as content for the app
+// These build the Calendar Pages, each of which house the dates, with each supposedly having blog entries, to-do lists and more
+// I could certainly just have such data placed on a database but for now, having them here is good enough
+// Find a way to have the data generated here available on the backend
+calendarJS.getCalendarPage = (year, month) => { // TODO We can do better
     // This returns an array filled with dates to fill a calendar page
-    // console.log(`getCalendarPage()`);
-    let result = [];
+    let result = []; // Should house all the 42 dates
 
-    activeDate = {
-        month: month,
-        year: year,
+    const active = {
+        count: calendarJS.daysInMonth(month + 1, year),
+        monthString: calendarJS.getMonthString(month),
+        startDay: new Date(year, month, 1).getDay(),
     }
-
-    activeDate.count = daysInMonth(activeDate.month + 1, activeDate.year);
-    activeDate.monthString = getMonthString(activeDate.month);
-    activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
 
     const prevMonth = {
-        month: (activeDate.month != 0) ? activeDate.month - 1 : 11,
-        year: (activeDate.month != 0) ? activeDate.year : activeDate.year - 1,
+        month: (month != 0) ? month - 1 : 11,
+        year: (month != 0) ? year : year - 1,
     }
     const nextMonth = {
-        month: (activeDate.month != 11) ? activeDate.month + 1 : 0,
-        year: (activeDate.month != 11) ? activeDate.year : activeDate.year + 1,
+        month: (month != 11) ? month + 1 : 0,
+        year: (month != 11) ? year : year + 1,
     }
-    prevMonth.count = daysInMonth(prevMonth.month + 1, prevMonth.year);
-    prevMonth.monthString = getMonthString(prevMonth.month);
-    nextMonth.count = daysInMonth(nextMonth.month + 1, nextMonth.year);
-    nextMonth.monthString = getMonthString(nextMonth.month);
+
+    prevMonth.count = calendarJS.daysInMonth(prevMonth.month + 1, prevMonth.year);
+    prevMonth.monthString = calendarJS.getMonthString(prevMonth.month);
+    nextMonth.count = calendarJS.daysInMonth(nextMonth.month + 1, nextMonth.year);
+    nextMonth.monthString = calendarJS.getMonthString(nextMonth.month);
     nextMonth.startDay = new Date(nextMonth.year, nextMonth.month, 1).getDay();
 
-    const startDate = (activeDate.startDay === 0) ? {
-        month: activeDate.month,
+    const startDate = (active.startDay === 0) ? {
+        month: month,
         date: 1,
-        year: activeDate.year,
+        year: year,
         day: 0
     } : {
         month: prevMonth.month,
-        date: prevMonth.count - activeDate.startDay + 1,
+        date: prevMonth.count - active.startDay + 1,
         year: prevMonth.year,
         day: 0
     };
     const endDate = {
         month: nextMonth.month,
-        date: 42 - activeDate.count - activeDate.startDay,
+        date: 42 - active.count - active.startDay,
         year: nextMonth.year,
         day: 6
     };
 
     // -* We get the trailing days from the previous month
-    if (activeDate.startDay != 0) {
+    if (active.startDay != 0) {
         for (let i = startDate.date, j = 0; i <= prevMonth.count; i++, j++) {
             result.push({
                 month: prevMonth.month,
@@ -131,13 +129,13 @@ function getCalendarPage(year, month) {
     }
 
     // -* Now we add the active month
-    for (let i = 1, j = activeDate.startDay; i <= activeDate.count; i++, j++) {
+    for (let i = 1, j = active.startDay; i <= active.count; i++, j++) {
         j = (j <= 6) ? j : 0;
         result.push({
-            month: activeDate.month,
-            monthString: activeDate.monthString,
+            month: month,
+            monthString: active.monthString,
             date: i,
-            year: activeDate.year,
+            year: year,
             day: j
         });
     }
@@ -145,7 +143,6 @@ function getCalendarPage(year, month) {
     // -* Finally, we add the starting dates of the next month
     for (let i = 1, j = nextMonth.startDay; i <= endDate.date; i++, j++) {
         j = (j <= 6) ? j : 0;
-
         result.push({
             month: nextMonth.month,
             monthString: nextMonth.monthString,
@@ -158,114 +155,166 @@ function getCalendarPage(year, month) {
     return result;
 }
 
-function getAllCalendarPages() {
-    // console.log(`getAllCalendarPages()`);
+calendarJS.getAllCalendarPages = (minYear, maxYear) => { // * OKAY
+    // Returns an array of all Calendar Pages found from minYear to maxYear
+    let result = [];
     for (let year = minYear; year <= maxYear; year++) {
         for (let month = 0; month <= 11; month++) {
-            allCalendarPages.push(getCalendarPage(year, month, 1));
+            result.push(calendarJS.getCalendarPage(year, month));
         }
     }
+    return result;
 }
 
-
-// console.log(`What`); 
-// console.log(findCalendarPage(2022,0)); 
-
-function buildCalendarDiv(currentPage) {
-    // console.log(`buildCalendarDiv()`);
-
-    $(`.calendar`).remove();
-
-    // console.log(activeDate.monthString);
-
-    // let headerCalendarPicker = ``;
-    // headerCalendarPicker += `<div class="header--navbar--title--current--date-picker">`;
-    // headerCalendarPicker += `<p>${activeDate.monthString} ${activeDate.year}</p>`;
-    // headerCalendarPicker += `<input class="header--navbar--title--current--date-picker--input" id="date" name="date" type="date" value="">`;
-    // headerCalendarPicker += `</div>`;
-    // $(`.header--navbar--title--current`).html(`${headerCalendarPicker}`);
-
+calendarJS.buildCalendarHTML = (currentPage, activeDate) => { // * OKAY
     $(`.header--navbar--title--current--date-picker p`).html(`${activeDate.monthString} ${activeDate.year}`);
 
-    let calendarDivHTML = `<div class="calendar">`;
-
-    let previousPageHTML = `<button class="calendar--button calendar--prev" onclick="moveCalendarPage('previous')">`;
-    previousPageHTML += `<i class="fa-solid fa-arrow-left"></i>`;
-    previousPageHTML += `</button>`;
-
-    let nextPageHTML = `<button class="calendar--button calendar--next" onclick="moveCalendarPage('next')">`;
-    nextPageHTML += `<i class="fa-solid fa-arrow-right"></i>`;
-    nextPageHTML += `</button>`;
-
-    calendarDivHTML += previousPageHTML;
-    calendarDivHTML += nextPageHTML;
-
-
-    const daysOfTheWeekArray = [`Sunday`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`];
-    let daysOfTheWeekHTML = `<div class="calendar--head">`;
-    for (let i = 0; i < 7; i++) {
-        let dayOfTheWeekHTML = `<div class="calendar--day calendar--day-${daysOfTheWeekArray[i].toLowerCase()}">`;
-        dayOfTheWeekHTML += `<p>`;
-        dayOfTheWeekHTML += `${daysOfTheWeekArray[i]}`;
-        dayOfTheWeekHTML += `</p>`;
-        dayOfTheWeekHTML += `</div>`;
-
-        daysOfTheWeekHTML += dayOfTheWeekHTML;
-    }
-    daysOfTheWeekHTML += `</div>`;
-
-    calendarDivHTML += daysOfTheWeekHTML;
-
-    let calendarDivBodyHTML = `<div class="calendar--body">`;
-    for (let i = 0, t = 0; i < 6; i++) {
-        let weekDivHTML = `<div class="calendar--week calendar--week-${i}">`;
-        for (let k = 0; k <= 6 && t < 42; k++, t++) {
-            // const dateFunction = (activeDate.month === currentPage[t].month) ? `onclick="changeActiveDate(${currentPage[t].year},${currentPage[t].month},${currentPage[t].date})"` :
-            //     (activeDate.month > currentPage[t].month) ?
-            //     `onclick="moveCalendarPage('previous')"` : `onclick="moveCalendarPage('next')"`;
-            const dateFunction = `onclick="changeActiveDate(${currentPage[t].year},${currentPage[t].month},${currentPage[t].date})"`;
-            // const dateFunction = `onclick="changeActiveDate(${currentPage[t].year},${currentPage[t].month},${currentPage[t].date})"`;
-
-            const dayClass = (currentPage[t].date === activeDate.date && currentPage[t].month === activeDate.month) ? `active` : (currentPage[t].month === activeDate.month) ? `current` : `noncurrent`;
-            let dayDivHTML = `<div class="calendar--day calendar--day--${dayClass} calendar--week-${i}--day calendar--week-${i}--day-${k} date--${currentPage[t].year}-${currentPage[t].month}-${currentPage[t].date}" ${dateFunction}>`;
-            dayDivHTML += `<p class="calendar--day--date">`;
-            dayDivHTML += `${currentPage[t].monthString.slice(0,3)} ${currentPage[t].date}`;
-            dayDivHTML += `</p>`;
-            
-            if (currentPage[t].hasOwnProperty(`post`)) {
-                // console.log(`WHATT`); 
-                
-                dayDivHTML += `<p class="calendar--day--title">`;
-                dayDivHTML += `${currentPage[t].post.title}`;
-                dayDivHTML += `</p>`;
-            }
-
-            dayDivHTML += `</div>`;
-            weekDivHTML += dayDivHTML;
+    function calendarDiv() {
+        let result = ``;
+        for (let i = 0; i < 5; i++) {
+            result += `<div class="carousel-item-${i+1} carousel-item">`;
+            result += `<div class="calendar">`;
+            result += daysOfTheWeekDiv(i);
+            result += calendarBodyDiv(i);
+            result += `</div>`;
+            result += `</div>`;
         }
-        weekDivHTML += `</div>`;
-        calendarDivBodyHTML += weekDivHTML;
+        // result += prevAndNextBtn(index);
+        return result;
     }
-    calendarDivBodyHTML += `</div>`;
 
-    calendarDivHTML += calendarDivBodyHTML;
-    calendarDivHTML += `</div>`;
+    function prevAndNextBtn() {
+        let prevBtn = `<button class="calendar--button calendar--prev" onclick="calendarJS.moveCalendarPage('previous')">`;
+        prevBtn += `<i class="fa-solid fa-arrow-left"></i>`;
+        prevBtn += `</button>`;
 
-    $(`.main--calendar`).append(calendarDivHTML);
+        let nextBtn = `<button class="calendar--button calendar--next" onclick="calendarJS.moveCalendarPage('next')">`;
+        nextBtn += `<i class="fa-solid fa-arrow-right"></i>`;
+        nextBtn += `</button>`;
+
+        return prevBtn + nextBtn;
+    }
+
+    function daysOfTheWeekDiv() {
+        const daysOfTheWeekArray = [`Sunday`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`];
+        let result = `<div class="calendar--head">`;
+        for (let i = 0; i < 7; i++) {
+            result += `<div class="calendar--day calendar--day-${daysOfTheWeekArray[i].toLowerCase()}">`;
+            result += `<p>`;
+            result += `${daysOfTheWeekArray[i]}`;
+            result += `</p>`;
+            result += `</div>`;
+        }
+        result += `</div>`;
+        return result;
+    }
+
+    function calendarBodyDiv(index) {
+        let result = `<div class="calendar--body">`;
+        for (let i = 0, t = 0; i < 6; i++) {
+            let weekDivHTML = `<div class="calendar--week calendar--week-${i}">`;
+            for (let k = 0; k <= 6 && t < 42; k++, t++) {
+                const entry = currentPage[index][t];
+
+                const onclick = `onclick="calendarJS.changeActiveDate(${entry.year},${entry.month},${entry.date})"`;
+                const dayClass = (entry.date === activeDate.date && entry.month === activeDate.month) ? `active` : (entry.month === activeDate.month) ? `current` : `noncurrent`;
+                let classes = `class="`;
+                classes += `calendar--day `;
+                classes += `calendar--day--${dayClass} `;
+                classes += `calendar--week-${i}--day `;
+                classes += `calendar--week-${i}--day-${k} `;
+                classes += `date--${entry.year}-${entry.month}-${entry.date}`;
+                classes += `"`;
+
+                let dayDivHTML = `<div ${classes} ${onclick}>`;
+                dayDivHTML += `<p class="calendar--day--date">`;
+                dayDivHTML += `${entry.monthString.slice(0,3)} ${entry.date}`;
+                dayDivHTML += `</p>`;
+
+                if (entry.hasOwnProperty(`post`)) {
+                    dayDivHTML += `<p class="calendar--day--title">`;
+                    dayDivHTML += `${entry.post.title}`;
+                    dayDivHTML += `</p>`;
+                }
+
+                dayDivHTML += `</div>`;
+                weekDivHTML += dayDivHTML;
+            }
+            weekDivHTML += `</div>`;
+            result += weekDivHTML;
+        }
+        result += `</div>`;
+        return result;
+    }
+
+    // $(`.main--calendar`).append(calendarDiv());
+
+    $(`.carousel-inner`).html(calendarDiv());
+    $(`.carousel-item-3`).addClass(`active`);
 }
 
-function changeActiveDate(year, month, date) {
-    // console.log(`new = ${year}, ${month}`); 
-    // console.log(`active = ${activeDate.year}, ${activeDate.month}`); 
-    $(`.header--navbar--title--current--date-picker--input`).val(`${year}-${(month<10)?'0'+(month+1):(month+1)}-${(date<10)?'0'+date:date}`);
+calendarJS.findCalendarPage = (year, month) => { // * OKAY
+    let result = [];
 
+    let months = [{
+            year: (month < 2) ? year - 1 : year,
+            month: (month < 2) ? 10 + month : month - 2,
+        },
+        {
+            year: (month < 1) ? year - 1 : year,
+            month: (month < 1) ? 11 : month - 1,
+        },
+        {
+            year: year,
+            month: month,
+        },
+        {
+            year: (month > 10) ? year + 1 : year,
+            month: (month > 10) ? 0 : month + 1,
+        },
+        {
+            year: (month > 9) ? year + 1 : year,
+            month: (month > 9) ? month - 10 : month + 2,
+        },
+    ];
+
+    for (let i = 0; i < 5; i++) {
+        let iYear = months[i].year;
+        let iMonth = months[i].month;
+        result.push(calendarJS.allCalendarPages[((iYear - calendarJS.minYear) * 12) + iMonth]);
+    }
+
+    return result;
+    // return calendarJS.allCalendarPages[((year - calendarJS.minYear) * 12) + month];
+}
+
+// * changeActiveDate(year, month, date, activeDate)
+calendarJS.changeActiveDate = (year, month, date) => {
     year = parseInt(year);
     month = parseInt(month);
     date = parseInt(date);
 
-    if (year === activeDate.year && month === activeDate.month) {
-        activeDate.date = date;
+    const prevDate = JSON.parse(JSON.stringify(calendarJS.activeDate));
+    let activeDate = JSON.parse(JSON.stringify(calendarJS.activeDate));
 
+    // const minYear = calendarJS.minYear;
+    // const allCalendarPages = calendarJS.allCalendarPages;
+
+    activeDate = {
+        year: year,
+        month: month,
+        date: date
+    };
+
+    activeDate.count = calendarJS.daysInMonth(activeDate.month + 1, activeDate.year);
+    activeDate.monthString = calendarJS.getMonthString(activeDate.month);
+    activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
+
+    calendarJS.activeDate = activeDate;
+
+    $(`.header--navbar--title--current--date-picker--input`).val(`${year}-${(month<10)?'0'+(month+1):(month+1)}-${(date<10)?'0'+date:date}`);
+
+    if (year === prevDate.year && month === prevDate.month) {
         if ($(`.date--${year}-${month}-${date}`).hasClass(`calendar--day--active`)) {
             month++;
             let trail = `${year}`;
@@ -280,93 +329,63 @@ function changeActiveDate(year, month, date) {
             $(`.date--${year}-${month}-${date}`).removeClass(`calendar--day--current`);
         }
     } else {
-        activeDate = {
-            year: year,
-            month: month,
-            date: date
-        };
-
-        activeDate.count = daysInMonth(activeDate.month + 1, activeDate.year);
-        activeDate.monthString = getMonthString(activeDate.month);
-        activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
-
-        const newPage = findCalendarPage(year, month);
-        buildCalendarDiv(newPage);
+        // * This is what happens if the active date isn't within the current month
+        const newPage = calendarJS.findCalendarPage(year, month);
+        calendarJS.buildCalendarHTML(newPage, activeDate);
     }
 }
 
-function writeForToday() {
-    let trail = `${currentDate.year}`;
-    trail += `-${(currentDate.month < 10) ? `0${currentDate.month + 1}` : currentDate.month + 1}`;
-    trail += `-${(currentDate.date < 10) ? `0${currentDate.date}` : currentDate.date}`;
+// * writeForToday()
+calendarJS.writeForToday = () => {
+    const today = JSON.parse(JSON.stringify(calendarJS.currentDate));
+
+    let trail = `${today.year}`;
+    trail += `-${(today.month < 10) ? `0${today.month + 1}` : today.month + 1}`;
+    trail += `-${(today.date < 10) ? `0${today.date}` : today.date}`;
     window.location.href = `/compose/${trail}`;
 }
 
-function moveCalendarPage(direction) {
-    // console.log(`moveCalendarPage(${direction})`);
-    // const newPage = (direction === "next") ? {
-    //     year: (currentDate.month != 11) ? currentDate.year : currentDate.year + 1,
-    //     month: (currentDate.month != 11) ? currentDate.month + 1 : 0,
-    //     date: 1
-    // } : {
-    //     year: (currentDate.month != 0) ? currentDate.year : currentDate.year - 1,
-    //     month: (currentDate.month != 0) ? currentDate.month - 1 : 11,
-    //     date: 1
-    // };
+// * moveCalendarPage(direction)
+calendarJS.moveCalendarPage = (direction) => {
+    if (movingState === false) {
+    // if ($(`.calendar--button`).hasOwnProperty(`disabled`)) {
+        movingState = true;
+        const activeDate = JSON.parse(JSON.stringify(calendarJS.activeDate));
 
-    // currentDate.year = newPage.year;
-    // currentDate.month = newPage.month;
-    // currentDate.date = newPage.date;
+        $(`.calendar--button`).prop(`disabled`,true);
 
-    if (direction === "next") {
-        activeDate.year = (activeDate.month != 11) ? activeDate.year : activeDate.year + 1;
-        activeDate.month = (activeDate.month != 11) ? activeDate.month + 1 : 0;
-        activeDate.date = 1;
-    } else {
-        activeDate.year = (activeDate.month != 0) ? activeDate.year : activeDate.year - 1;
-        activeDate.month = (activeDate.month != 0) ? activeDate.month - 1 : 11;
-        activeDate.date = 1;
+        console.log(direction);
+        if (direction === "next") {
+            activeDate.year = (activeDate.month != 11) ? activeDate.year : activeDate.year + 1;
+            activeDate.month = (activeDate.month != 11) ? activeDate.month + 1 : 0;
+            activeDate.date = 1;
+        } else {
+            activeDate.year = (activeDate.month != 0) ? activeDate.year : activeDate.year - 1;
+            activeDate.month = (activeDate.month != 0) ? activeDate.month - 1 : 11;
+            activeDate.date = 1;
+        }
+
+        activeDate.count = calendarJS.daysInMonth(activeDate.month + 1, activeDate.year);
+        activeDate.monthString = calendarJS.getMonthString(activeDate.month);
+        activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
+
+        calendarJS.activeDate = activeDate;
+
+        let activeCalendarPage = calendarJS.findCalendarPage(activeDate.year, activeDate.month);
+        setTimeout(() => {
+            calendarJS.buildCalendarHTML(activeCalendarPage, activeDate);
+            $(`.calendar--button`).prop(`disabled`,false);
+            movingState = false;
+        }, 1000);
     }
-
-    activeDate.count = daysInMonth(activeDate.month + 1, activeDate.year);
-    activeDate.monthString = getMonthString(activeDate.month);
-    activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
-
-    // console.log(`activeDate.year = ${activeDate.year}`);
-    // console.log(`activeDate.month = ${activeDate.month}`);
-    // console.log(`activeDate.date = ${activeDate.date}`);
-
-    // console.log(`newPage.year = ${newPage.year}`);
-    // console.log(`newPage.month = ${newPage.month}`);
-
-    let activeCalendarPage = findCalendarPage(activeDate.year, activeDate.month);
-    // console.log(activeCalendarPage);
-    buildCalendarDiv(activeCalendarPage);
 }
 
-function findCalendarPage(year, month) {
-    // console.log(`-------findCalendarPage(${year}, ${month})`); 
-    activeCalendarPageIndex = (year - minYear) * 12;
-    activeCalendarPageIndex += (month);
+let movingState = false;
 
-    // console.log(`index`); 
-    // console.log(calendarPageIndex); 
-
-    // console.log(`-------calendarPageIndex = ${calendarPageIndex}`);
-
-    let result = allCalendarPages[activeCalendarPageIndex];
-
-    // console.log(result); 
-    // return allCalendarPages[calendarPageIndex];
-    return result;
-}
-
-function addEventListeners() {
-    // `header--navbar--title--current--date-picker--input`;
+// * addEventListeners()
+calendarJS.addEventListeners = () => {
     $(`.header--navbar--title--current--date-picker--input`).change(() => {
         const newDate = $(`.header--navbar--title--current--date-picker--input`).val().split(`-`);
-
-        console.log(`newDate = ${newDate}`);
 
         const date = {
             year: newDate[0],
@@ -374,9 +393,6 @@ function addEventListeners() {
             date: newDate[2]
         };
 
-        changeActiveDate(date.year, date.month, date.date);
-
+        calendarJS.changeActiveDate(date.year, date.month, date.date);
     });
 }
-
-// findCalendarPage(1)

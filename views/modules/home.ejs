@@ -11,37 +11,60 @@
     <!-- * Header -->
     <%- include(`../partials/header`) -%>
 
-    <div class="wave">
+    <!-- <div class="wave">
         <div class="wave--top"></div>
         <svg class="wave--bottom" mlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="rgb(44, 70, 102)" fill-opacity="1" d="M0,64L26.7,53.3C53.3,43,107,21,160,64C213.3,107,267,213,320,261.3C373.3,309,427,299,480,266.7C533.3,235,587,181,640,160C693.3,139,747,149,800,176C853.3,203,907,245,960,256C1013.3,267,1067,245,1120,213.3C1173.3,181,1227,139,1280,133.3C1333.3,128,1387,160,1413,176L1440,192L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z"></path>
         </svg>
-    </div>
+    </div> -->
 
     <!-- * Main -->
     <main class="main--calendar">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+            <div class="carousel-inner">
+                <!-- <div class="carousel-item-1 carousel-item">
+                </div>
+                <div class="carousel-item-2 carousel-item">
+                </div>
+                <div class="carousel-item-3 carousel-item active">
+                </div>
+                <div class="carousel-item-4 carousel-item">
+                </div>
+                <div class="carousel-item-5 carousel-item">
+                </div> -->
+            </div>
+            <button class="calendar--button calendar--prev carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onclick="calendarJS.moveCalendarPage('previous')">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="calendar--button calendar--next carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" onclick="calendarJS.moveCalendarPage('next')">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </main>
 
     <!-- * Footer -->
     <%- include(`../partials/footer`) -%>
 
+    <script src="javascript/client/test.js"></script>
     <script src="javascript/client/calendar.js"></script>
     <script>
-        getCurrentDate();
-        getAllCalendarPages();
-        changeActiveDate(currentDate.year, currentDate.month, currentDate.date);
-        let activeCalendarPage = findCalendarPage(currentDate.year, currentDate.month);
+        calendarJS.currentDate = calendarJS.getCurrentDate();
+        calendarJS.allCalendarPages = calendarJS.getAllCalendarPages(calendarJS.minYear, calendarJS.maxYear);
 
-        // console.log(findCalendarPage(1998,11)); 
-        addEventListeners();
+        calendarJS.activeDate = JSON.parse(JSON.stringify(calendarJS.currentDate));
 
-        let entryDB = <%-entryDBProxy%> ;
-        console.log(entryDB);
+        let activeCalendarPage = calendarJS.findCalendarPage(calendarJS.currentDate.year, calendarJS.currentDate.month);
+
+        calendarJS.buildCalendarHTML(activeCalendarPage, calendarJS.activeDate);
+
+        calendarJS.addEventListeners();
     </script>
-    <script src="javascript/client/pseudodata.js"></script>
+    <!-- <script src="javascript/client/pseudodata.js"></script>
     <script>
         buildCalendarDiv(activeCalendarPage);
-    </script>
+    </script> -->
 </body>
 
 </html>
