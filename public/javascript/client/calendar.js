@@ -211,12 +211,25 @@ calendarJS.buildCalendarHTML = (currentPage, activeDate) => { // * OKAY
 
     function calendarBodyDiv(index) {
         let result = `<div class="calendar--body">`;
+        let entryIsCurrent = false;
         for (let i = 0, t = 0; i < 6; i++) {
             let weekDivHTML = `<div class="calendar--week calendar--week-${i}">`;
             for (let k = 0; k <= 6 && t < 42; k++, t++) {
                 const entry = currentPage[index][t];
 
-                const onclick = `onclick="calendarJS.changeActiveDate(${entry.year},${entry.month},${entry.date})"`;
+                let onclick;
+
+                if (entry.month === activeDate.month) {
+                    onclick = `onclick="calendarJS.changeActiveDate(${entry.year},${entry.month},${entry.date})"`;
+                    entryIsCurrent = true;
+                } else if (entryIsCurrent === false) {
+                    onclick = `onclick="calendarJS.emulateCarouselClick('previous',${entry.year},${entry.month},${entry.date})"`;
+                } else {
+                    onclick = `onclick="calendarJS.emulateCarouselClick('next',${entry.year},${entry.month},${entry.date})"`;
+                    // onclick = `onclick="calendarJS.emulateCarouselClick('next','date')"`;
+                }
+
+                // const onclick = `onclick="calendarJS.changeActiveDate(${entry.year},${entry.month},${entry.date})"`;
                 const dayClass = (entry.date === activeDate.date && entry.month === activeDate.month) ? `active` : (entry.month === activeDate.month) ? `current` : `noncurrent`;
                 let classes = `class="`;
                 classes += `calendar--day `;
@@ -312,7 +325,8 @@ calendarJS.changeActiveDate = (year, month, date) => {
 
     calendarJS.activeDate = activeDate;
 
-    $(`.header--navbar--title--current--date-picker--input`).val(`${year}-${(month<10)?'0'+(month+1):(month+1)}-${(date<10)?'0'+date:date}`);
+    // console.log(`-----${(month<9)?'0'+(month+1):(month+1)}`); 
+    $(`.header--navbar--title--current--date-picker--input`).val(`${year}-${(month<9)?'0'+(month+1):(month+1)}-${(date<10)?'0'+date:date}`);
 
     if (year === prevDate.year && month === prevDate.month) {
         if ($(`.date--${year}-${month}-${date}`).hasClass(`calendar--day--active`)) {
@@ -346,41 +360,59 @@ calendarJS.writeForToday = () => {
 }
 
 // * moveCalendarPage(direction)
-calendarJS.moveCalendarPage = (direction) => {
+calendarJS.moveCalendarPage = (direction, state) => {
+    console.log(`moveCalendarPage(${direction}, ${state})`);
     if (movingState === false) {
-    // if ($(`.calendar--button`).hasOwnProperty(`disabled`)) {
+        // if ($(`.calendar--button`).hasOwnProperty(`disabled`)) {
         movingState = true;
         const activeDate = JSON.parse(JSON.stringify(calendarJS.activeDate));
 
-        $(`.calendar--button`).prop(`disabled`,true);
+        $(`.calendar--button`).prop(`disabled`, true);
 
         console.log(direction);
         if (direction === "next") {
             activeDate.year = (activeDate.month != 11) ? activeDate.year : activeDate.year + 1;
             activeDate.month = (activeDate.month != 11) ? activeDate.month + 1 : 0;
-            activeDate.date = 1;
+            // activeDate.date = 1;
         } else {
             activeDate.year = (activeDate.month != 0) ? activeDate.year : activeDate.year - 1;
             activeDate.month = (activeDate.month != 0) ? activeDate.month - 1 : 11;
-            activeDate.date = 1;
+            // activeDate.date = 1;
         }
 
         activeDate.count = calendarJS.daysInMonth(activeDate.month + 1, activeDate.year);
         activeDate.monthString = calendarJS.getMonthString(activeDate.month);
         activeDate.startDay = new Date(activeDate.year, activeDate.month, 1).getDay();
-
+        activeDate.date = (activeDate.date > activeDate.count) ? activeDate.count : activeDate.date;
+ 
         calendarJS.activeDate = activeDate;
+
+        $(`.header--navbar--title--current--date-picker--input`).val(`${activeDate.year}-${(activeDate.month<9)?'0'+(activeDate.month+1):(activeDate.month+1)}-${(activeDate.date<10)?'0'+activeDate.date:activeDate.date}`);
 
         let activeCalendarPage = calendarJS.findCalendarPage(activeDate.year, activeDate.month);
         setTimeout(() => {
             calendarJS.buildCalendarHTML(activeCalendarPage, activeDate);
-            $(`.calendar--button`).prop(`disabled`,false);
+            $(`.calendar--button`).prop(`disabled`, false);
             movingState = false;
-        }, 1000);
+        }, 600);
     }
 }
 
 let movingState = false;
+
+calendarJS.emulateCarouselClick = (direction, year, month, date) => {
+    // console.log(state); 
+    if (direction === `previous`) {
+        $(".carousel-control-prev-icon").click();
+    } else {
+        $(".carousel-control-next-icon").click();
+    }
+
+    setTimeout(() => {
+        calendarJS.changeActiveDate(year, month, date);
+    }, 600);
+
+}
 
 // * addEventListeners()
 calendarJS.addEventListeners = () => {
